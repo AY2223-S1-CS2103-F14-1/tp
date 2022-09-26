@@ -54,7 +54,10 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        remark.setText("Remark text");
+
+        String personRemark = person.getRemark().value;
+        String remarkString = personRemark.trim().equals("") ? "" : "Remark: " + personRemark;
+        remark.setText(remarkString);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
