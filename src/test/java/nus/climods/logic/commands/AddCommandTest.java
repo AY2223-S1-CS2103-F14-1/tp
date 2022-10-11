@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import nus.climods.logic.parser.exceptions.ParseException;
+import nus.climods.model.module.UserModule;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
@@ -21,7 +23,6 @@ import nus.climods.model.Model;
 import nus.climods.model.ReadOnlyAddressBook;
 import nus.climods.model.ReadOnlyUserPrefs;
 import nus.climods.model.person.Person;
-import nus.climods.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
@@ -31,29 +32,30 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingUserModuleAdded modelStub = new ModelStubAcceptingUserModuleAdded();
+        UserModule validModule = new UserModule("CS2103");
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validModule).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validModule.getUserModuleCode()),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateModule_throwsCommandException() throws ParseException {
+        UserModule validModule = new UserModule("CS2103");
+        AddCommand addCommand = new AddCommand(validModule);
+        ModelStub modelStub = new ModelStubWithModule(validModule);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MODULE, () -> addCommand.execute(modelStub));
     }
 
     @Test
-    public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+    public void equals() throws ParseException {
+        UserModule alice = new UserModule("CS2103");
+        UserModule bob = new UserModule("CS1101S");
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -70,7 +72,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different module -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -125,6 +127,36 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasUserModule(UserModule module) {
+            return false;
+        }
+
+        @Override
+        public void deleteUserModule(UserModule target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addUserModule(UserModule module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserModule(UserModule target, UserModule editedUserModule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<UserModule> getFilteredUserModuleList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredUserModuleList(Predicate<UserModule> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -151,41 +183,41 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single Module.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithModule extends ModelStub {
 
-        private final Person person;
+        private final UserModule module;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithModule(UserModule module) {
+            requireNonNull(module);
+            this.module = module;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasUserModule(UserModule module) {
+            requireNonNull(module);
+            return this.module.isSameUserModule(module);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the module being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private class ModelStubAcceptingUserModuleAdded extends ModelStub {
 
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<UserModule> modulesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasUserModule(UserModule module) {
+            requireNonNull(module);
+            return modulesAdded.stream().anyMatch(module::isSameUserModule);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addUserModule(UserModule module) {
+            requireNonNull(module);
+            modulesAdded.add(module);
         }
 
         @Override
@@ -195,3 +227,4 @@ public class AddCommandTest {
     }
 
 }
+

@@ -5,6 +5,7 @@ import java.util.Set;
 import nus.climods.logic.commands.AddCommand;
 import nus.climods.logic.commands.EditCommand;
 import nus.climods.logic.parser.CliSyntax;
+import nus.climods.model.module.UserModule;
 import nus.climods.model.person.Person;
 import nus.climods.model.tag.Tag;
 
@@ -15,23 +16,18 @@ public class PersonUtil {
 
     /**
      * Returns an add command string for adding the {@code person}.
+     * @param person
      */
-    public static String getAddCommand(Person person) {
+    public static String getAddCommand(UserModule person) {
         return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(UserModule person) {
         StringBuilder sb = new StringBuilder();
-        sb.append(CliSyntax.PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(CliSyntax.PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(CliSyntax.PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(CliSyntax.PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(CliSyntax.PREFIX_TAG + s.tagName + " ")
-        );
+        sb.append(person.getUserModuleCode() + " ");
         return sb.toString();
     }
 

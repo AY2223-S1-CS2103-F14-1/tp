@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import nus.climods.model.module.UserModule;
 import org.junit.jupiter.api.Test;
 
 import nus.climods.commons.core.Messages;
@@ -33,9 +34,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        UserModule userModule = new UserModule("CS2103");
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(userModule));
+        assertEquals(new AddCommand(userModule), command);
     }
 
     @Test

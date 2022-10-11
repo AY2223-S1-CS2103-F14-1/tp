@@ -2,6 +2,8 @@ package nus.climods.logic.commands;
 
 import static nus.climods.testutil.TypicalPersons.getTypicalAddressBook;
 
+import nus.climods.logic.parser.exceptions.ParseException;
+import nus.climods.model.module.UserModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,20 +26,20 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+    public void execute_newUserModule_success() throws ParseException {
+        UserModule validUserModule = new UserModule("CS2103");
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        expectedModel.addUserModule(validUserModule);
 
-        CommandTestUtil.assertCommandSuccess(new AddCommand(validPerson), model,
-            String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        CommandTestUtil.assertCommandSuccess(new AddCommand(validUserModule), model,
+            String.format(AddCommand.MESSAGE_SUCCESS, validUserModule), expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        CommandTestUtil.assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+    public void execute_duplicateUserModule_throwsCommandException() {
+        UserModule personInList = model.getAddressBook().getUserModuleList().get(0);
+        CommandTestUtil.assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_MODULE);
     }
 
 }

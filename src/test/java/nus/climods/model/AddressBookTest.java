@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import nus.climods.model.module.UserModule;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -91,6 +92,8 @@ public class AddressBookTest {
 
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
+        private final ObservableList<UserModule> modules = FXCollections.observableArrayList();
+
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
@@ -99,6 +102,11 @@ public class AddressBookTest {
         public ObservableList<Person> getPersonList() {
             return persons;
         }
+
+        public ObservableList<UserModule> getUserModuleList() {
+            return modules;
+        };
+
     }
 
 }
