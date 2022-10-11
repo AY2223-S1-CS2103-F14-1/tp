@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import nus.climods.commons.core.GuiSettings;
 import nus.climods.commons.core.LogsCenter;
-import nus.climods.model.person.Person;
 import nus.climods.model.module.UserModule;
+import nus.climods.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -153,7 +153,7 @@ public class ModelManager implements Model {
             && filteredPersons.equals(other.filteredPersons);
     }
 
-// -----------------------for UserModule --------------------------------------------------------------------------
+    // -----------------------for UserModule --------------------------------------------------------------------------
     //TODO
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
@@ -196,6 +196,4 @@ public class ModelManager implements Model {
         filteredUserModules.setPredicate(predicate);
     }
 
-
-// -----------------------for Person --------------------------------------------------------------------------
 }

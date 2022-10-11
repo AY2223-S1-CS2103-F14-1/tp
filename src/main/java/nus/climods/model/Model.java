@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import nus.climods.commons.core.GuiSettings;
 import nus.climods.model.module.UserModule;
 import nus.climods.model.person.Person;
-import nus.climods.model.module.Module;
 
 /**
  * The API of the Model component.
@@ -60,7 +59,7 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-// -----------------------for UserModule --------------------------------------------------------------------------
+    // -----------------------for UserModule --------------------------------------------------------------------------
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
      */
@@ -78,8 +77,8 @@ public interface Model {
 
     /**
      * Replaces the given module {@code target} with {@code editedUserModule}. {@code target} must exist in the address
-     * book. The module identity of {@code editedUserModule} must not be the same as another existing module in the address
-     * book.
+     * book. The module identity of {@code editedUserModule} must not be the same as another existing module in the
+     * address book.
      */
     void setUserModule(UserModule target, UserModule editedUserModule);
 
@@ -96,7 +95,7 @@ public interface Model {
     void updateFilteredUserModuleList(Predicate<UserModule> predicate);
 
 
-// -----------------------for Person --------------------------------------------------------------------------
+    // -----------------------for Person --------------------------------------------------------------------------
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */

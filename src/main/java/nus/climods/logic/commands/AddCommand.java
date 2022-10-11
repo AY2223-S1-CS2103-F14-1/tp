@@ -25,7 +25,7 @@ public class AddCommand extends Command {
         + CliSyntax.PREFIX_TAG + "4 MC";
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MODULE= "This module already exist in your list of modules";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exist in your list of modules";
 
     private final UserModule toAdd;
 

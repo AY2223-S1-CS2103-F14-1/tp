@@ -1,28 +1,40 @@
 package nus.climods.model.module;
 
-import nus.climods.logic.parser.exceptions.ParseException;
-import nus.climods.model.module.exceptions.UserModuleNotFoundException;
-import nus.climods.model.tag.Tag;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.api.ModulesApi;
-import org.openapitools.client.model.Module;
-import org.openapitools.client.api.VenuesApi;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Set;
 
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.ModulesApi;
+import org.openapitools.client.model.Module;
+
+import nus.climods.logic.parser.exceptions.ParseException;
+
+/**
+ * Public wrapper class UserModule that represents the module based on module details fetched from ModuleAPI. Contains
+ * get and set functions for users to set tutorial and lecture timeslot. Throws exception if the module keyed in by
+ * the user is not contained in the list of Modules in ModuleAPI.
+ *
+ * Currently, there are a few dummy variables, which are Tutorial, AcadYear and lecture timeslot. These will be
+ * implemented later.
+ */
 public class UserModule {
     private final ModulesApi api = new ModulesApi();
 
     // Identity fields
     private final Module userModule;
     private final String acadYear = "2022-2023";
+
+    //TODO: These are all dummy variables, can fetch from API
     private String tutorial = "Tutorial: Monday, 1400-1500";
     private String lecture = "Lecture: Friday, 1600-1800";
 
-    public UserModule(String moduleCode) throws ParseException{
+    /**
+     * public constructor for UserModule.
+     * @param moduleCode moduleCode input by user.
+     * @throws ParseException if module is not existent in NUSMods.
+     */
+    public UserModule(String moduleCode) throws ParseException {
         try {
             this.userModule = api.acadYearModulesModuleCodeJsonGet(acadYear, moduleCode);
         } catch (ApiException e) {
@@ -30,15 +42,21 @@ public class UserModule {
         }
     }
 
-    public Module getUserModule() {return this.userModule;}
+    public Module getUserModule() {
+        return this.userModule;
+    }
 
     public String getUserModuleCode() {
         return this.userModule.getModuleCode();
     }
 
-    public String getAcademicYear() { return this.userModule.getAcadYear();}
+    public String getAcademicYear() {
+        return this.userModule.getAcadYear();
+    }
 
-    public String getUserModuleTitle() { return this.userModule.getTitle();}
+    public String getUserModuleTitle() {
+        return this.userModule.getTitle();
+    }
 
     public String getDepartment() {
         return "Computer Science";

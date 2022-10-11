@@ -9,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import nus.climods.commons.core.LogsCenter;
 import nus.climods.model.module.UserModule;
-import nus.climods.model.module.UserModule;
 import nus.climods.ui.UiPart;
 
 /**
