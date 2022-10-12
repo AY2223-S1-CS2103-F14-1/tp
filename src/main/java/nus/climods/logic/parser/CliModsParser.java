@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import nus.climods.logic.commands.AddCommand;
 import nus.climods.logic.commands.Command;
 import nus.climods.logic.commands.DeleteCommand;
+import nus.climods.logic.commands.ExitCommand;
 import nus.climods.logic.parser.exceptions.ParseException;
 
 /**
@@ -42,6 +43,8 @@ public class CliModsParser {
             return new AddCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+            case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
