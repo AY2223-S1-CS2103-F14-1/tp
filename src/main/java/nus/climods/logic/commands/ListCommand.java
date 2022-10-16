@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static nus.climods.commons.core.Messages.MESSAGE_MODULES_LISTED_OVERVIEW;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import nus.climods.logic.parser.parameters.FacultyCodeParameter;
 import nus.climods.logic.parser.parameters.UserFlagParameter;
@@ -40,5 +42,21 @@ public class ListCommand extends Command {
         model.updateFilteredModuleList(facultyCode, hasUser);
         return new CommandResult(String.format(MESSAGE_MODULES_LISTED_OVERVIEW,
                 model.getFilteredModuleList().size()));
+    }
+
+    public Optional<Boolean> getUser() {
+        return hasUser;
+    }
+
+    public Optional<String> getFacultyCode() {
+        return facultyCode;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof ListCommand
+                && facultyCode.equals(((ListCommand) other).getFacultyCode()))
+                && hasUser.equals(((ListCommand) other).getUser());
     }
 }

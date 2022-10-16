@@ -14,7 +14,7 @@ import nus.climods.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data", "addressbook.json");
+    private Path userModuleFilepath = Paths.get("data", "userModule.json");
     private String academicYear = "2022-2023";
 
     /**
@@ -37,7 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setUserModuleFilepath(newUserPrefs.getUserModuleFilepath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -49,13 +49,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getUserModuleFilepath() {
+        return userModuleFilepath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setUserModuleFilepath(Path userModuleFilepath) {
+        requireNonNull(userModuleFilepath);
+        this.userModuleFilepath = userModuleFilepath;
     }
 
     public String getAcademicYear() {
@@ -78,19 +78,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-            && Objects.equals(addressBookFilePath.toAbsolutePath(), o.addressBookFilePath.toAbsolutePath());
+            && Objects.equals(userModuleFilepath.toAbsolutePath(), o.userModuleFilepath.toAbsolutePath());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, userModuleFilepath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + userModuleFilepath);
         return sb.toString();
     }
 

@@ -43,7 +43,7 @@ public class ModelManager implements Model {
         this.moduleList = new ModuleList(moduleList);
         this.uniqueUserModuleList = uniqueUserModuleList;
         this.filteredModuleList = new FilteredList<>(moduleList.getModules());
-        filteredUserModules = new FilteredList<UserModule>(uniqueUserModuleList.asUnmodifiableObservableList());
+        this.filteredUserModules = new FilteredList<UserModule>(uniqueUserModuleList.asUnmodifiableObservableList());
     }
 
     //=========== UserModule ==================================================================================
@@ -99,7 +99,6 @@ public class ModelManager implements Model {
      * @return
      */
     public void updateFilteredModuleList(Optional<String> facultyCode, Optional<Boolean> hasUser) {
-        // TODO: Implement filtering for saved modules
         CodeContainsKeywordsPredicate predicate = new CodeContainsKeywordsPredicate(facultyCode);
         filteredModuleList.setPredicate(predicate);
     }

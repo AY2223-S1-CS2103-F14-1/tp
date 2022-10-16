@@ -59,9 +59,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
 
-        // TODO Change userPref file path getters
-        UserModuleListStorage userModuleListStorage = new JsonUserModuleListStorage(userPrefs.getAddressBookFilePath());
-        ModuleListStorage moduleListStorage = new JsonModuleListStorage(userPrefs.getAddressBookFilePath());
+        UserModuleListStorage userModuleListStorage = new JsonUserModuleListStorage(userPrefs.getUserModuleFilepath());
+        // TODO: This should be for cached modules?
+        ModuleListStorage moduleListStorage = new JsonModuleListStorage(userPrefs.getUserModuleFilepath());
         storage = new StorageManager(moduleListStorage, userModuleListStorage, userPrefsStorage);
 
         initLogging(config);
@@ -92,9 +92,6 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format!");
             initialModuleList = new ModuleList(academicYear);
         }
-
-
-
         return new ModelManager(initialModuleList, initialUserModuleList, userPrefs);
     }
 
