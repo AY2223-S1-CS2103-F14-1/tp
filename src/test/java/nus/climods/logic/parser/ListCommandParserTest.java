@@ -1,12 +1,13 @@
 package nus.climods.logic.parser;
 
+import static nus.climods.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
 import nus.climods.logic.commands.ListCommand;
 import nus.climods.logic.parser.exceptions.ParseException;
 import nus.climods.logic.parser.parameters.FacultyCodeParameter;
 import nus.climods.logic.parser.parameters.UserFlagParameter;
-import org.junit.jupiter.api.Test;
-
-import static nus.climods.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 class ListCommandParserTest {
 

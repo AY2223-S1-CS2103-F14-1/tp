@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static nus.climods.commons.core.Messages.MESSAGE_MODULES_LISTED_OVERVIEW;
 
 import java.util.Optional;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import nus.climods.logic.parser.parameters.FacultyCodeParameter;
 import nus.climods.logic.parser.parameters.UserFlagParameter;

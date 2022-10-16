@@ -1,5 +1,9 @@
 package nus.climods.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import nus.climods.commons.core.Messages;
 import nus.climods.logic.parser.ListCommandParser;
 import nus.climods.logic.parser.exceptions.ParseException;
@@ -8,10 +12,6 @@ import nus.climods.model.ModelManager;
 import nus.climods.model.UserPrefs;
 import nus.climods.model.module.ModuleList;
 import nus.climods.model.module.UniqueUserModuleList;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 class ListCommandTest {
 
@@ -20,9 +20,10 @@ class ListCommandTest {
             new UserPrefs());
 
     @Test
-    public void execute_zeroKeywords_AllModulesFound() throws ParseException {
+    public void execute_zeroKeywords_allModulesFound() throws ParseException {
         // No faculty code should return the entire catalogue of modules
-        String expectedMessage = String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW, model.getFilteredModuleList().size());
+        String expectedMessage = String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW,
+                model.getFilteredModuleList().size());
         ListCommand command = new ListCommandParser().parse("");
         CommandResult commandResult = command.execute(model);
 
