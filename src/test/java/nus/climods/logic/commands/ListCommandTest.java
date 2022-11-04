@@ -1,6 +1,5 @@
 package nus.climods.logic.commands;
 
-import static nus.climods.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -50,10 +49,4 @@ class ListCommandTest {
 
         assertEquals(commandResult.getFeedbackToUser(), expectedMessage);
     }
-
-    @Test
-    public void construct_nullModule_throwsException() {
-        assertThrows(NullPointerException.class, () -> new ListCommand(null, null));
-    }
-
 }

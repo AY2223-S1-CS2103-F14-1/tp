@@ -5,42 +5,46 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Class "<<interface>>\nReadOnlyModuleList" as ReadOnlyModuleList
+Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
-Class ModuleList
+Class AddressBook
 Class ModelManager
 Class UserPrefs
 
-Class UniqueUserModuleList
-Class Module
-Class UserModule
-Class Lesson
-Class SemestersEnum
-Class LessonTypeEnum
+Class UniquePersonList
+Class Person
+Class Address
+Class Email
+Class Name
+Class Phone
+Class Tag
 
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-ModuleList .up.|> ReadOnlyModuleList
+AddressBook .up.|> ReadOnlyAddressBook
 
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyModuleList
-ModelManager -left-> "1" ModuleList
+Model .left.> ReadOnlyAddressBook
+ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-ModelManager *--> "1" UniqueUserModuleList
-UniqueUserModuleList --> "filtered" UserModule
+AddressBook *--> "1" UniquePersonList
+UniquePersonList --> "~* all" Person
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person *--> "*" Tag
 
-ModuleList *-down-> "*" Module
-UserModule *-up-> Module
-Module *--> SemestersEnum
-Module *--> Lesson
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
 
-Lesson --> LessonTypeEnum
-
+ModelManager -->"~* filtered" Person
 @enduml
